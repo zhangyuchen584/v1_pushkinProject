@@ -63,8 +63,8 @@ def loadalldata(threshold):
 	for ti in threshold:
 		count = 0
 		for k in sorted(calculateGroup, key=lambda k: len(calculateGroup[k]), reverse=True):
-			# print (k,len(calculateGroup[k]))
 			if len(calculateGroup[k])>=ti:
+				# print (k)
 				count +=1
 
 		print ("senteces > %s: %s" %(ti,count))
@@ -77,5 +77,4 @@ if __name__ == '__main__':
 	newData,groups = loadalldata(threshold = [20,30,50,70])
 	pickle.dump(newData,open(ROOT.DATA_ROOT+'/newData/allData.pk','wb'))
 	pickle.dump(groups, open(ROOT.DATA_ROOT + '/newData/groupofData.pk', 'wb'))
-
 

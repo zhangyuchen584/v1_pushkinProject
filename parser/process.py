@@ -10,6 +10,9 @@ from nltk.corpus import wordnet as wn
 sys.path.append(r"../..")
 from definition import ROOT
 # from support import stopwordsNoNegWords
+from definition import ROOT
+from support import stopwordsNoNegWords
+
 
 
 class process(object):
@@ -25,29 +28,28 @@ class process(object):
                                u"\U0001F1E0-\U0001F1FF"  # flags (iOS)
                                "]+", flags=re.UNICODE)
 
-    # # read abbraviation dic
-    # with open(ROOT.ROOT_DIR + "/support/slangDic.txt", "r") as f1:
-    #     slangDic = f1.read()
-    #
-    # slang = {}
-    # slangKey = []
-    #
-    # for index in slangDic.split("\n"):
-    #     try:
-    #         slang[index.split(":")[0]] = index.split(":")[1]
-    #         slangKey.append(index.split(":")[0])
-    #     except:
-    #         pass
+    # read abbraviation dic
+    with open(ROOT.ROOT_DIR + "/support/slangDic.txt", "r") as f1:
+        slangDic = f1.read()
+    slang = {}
+    slangKey = []
+
+    for index in slangDic.split("\n"):
+        try:
+            slang[index.split(":")[0]] = index.split(":")[1]
+            slangKey.append(index.split(":")[0])
+        except:
+            pass
 
     ##stemmer words##
     snowball_stemmer = SnowballStemmer("english")
 
 
     @classmethod
-    def test(cls,line='345', toLower =True, removeURL =True,removeHashtag=True,removePunctuations=True,\
+    def line(cls,line='345', toLower =True, removeURL =True,removeHashtag=True,removePunctuations=True,\
              modifyAccent = True,removeEmoticons=True,removeAbbreviation=True,removeStopWords=True, \
              removeStemmer = True):
-        print (line)
+        # print (line)
 
         if toLower==True:
             line = line.replace("\t", " ").lower()
@@ -64,13 +66,13 @@ class process(object):
             # pass
             line = cls.emoji_pattern.sub(r'', line)
         if removeAbbreviation == True:
-            abbre = [x for x in slangKey if x in line.split(" ")]
+            abbre = [x for x in cls.slangKey if x in line.split(" ")]
 
             line = line.split(" ")
 
             if abbre:
                 for item in abbre:
-                    line = [x if (x not in abbre) else slang[item] for x in line]
+                    line = [x if (x not in abbre) else cls.slang[item] for x in line]
             line = ' '.join(line)
 
         if removeStopWords == True:
@@ -78,7 +80,7 @@ class process(object):
         if removeStemmer == True:
             line = ' '.join([cls.snowball_stemmer.stem(word) for word in line.split()]) + '.'
 
-        print(line)
+        # print(line)
         return line
 
 
@@ -102,7 +104,9 @@ class process(object):
 
 
 if __name__ == '__main__':
-    line = 'you  didn\'t 🙏 gonna ()..)thinking "improvement" http://www.df.df i home @lichao .'
-    process.test(line,removeAbbreviation=False,removeStopWords=False)
+    #process.test(line,removeAbbreviation=False,removeStopWords=False)
+    sent = 'you  didn\'t 🙏 gonna ()..)thinking "improvement" http://www.df.df i home @lichao .'
+    process.line(sent)
+
     # word = 'me'
     process.synonyms('me')
