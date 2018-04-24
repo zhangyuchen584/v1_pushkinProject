@@ -1,6 +1,8 @@
-import sys
-import numpy as np
-sys.path.append(r"../..")
+# -*- coding: utf-8 -*-
+__author__ = "Yuchen"
+__aim__ = ''
+
+
 from definition import ROOT
 import pickle
 

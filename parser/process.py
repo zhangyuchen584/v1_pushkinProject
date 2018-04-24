@@ -1,25 +1,18 @@
 # -*- coding: utf-8 -*-
 __author__ = "Yuchen"
 
-import sys
 import re
 from nltk.stem import SnowballStemmer
 import unidecode
 from string import punctuation
 from nltk.corpus import wordnet as wn
-sys.path.append(r"../..")
-from definition import ROOT
-# from support import stopwordsNoNegWords
 from definition import ROOT
 from support import stopwordsNoNegWords
 
 
 
 class process(object):
-    # def __init__(self,fun1=1,fun2=2):
-    #
-    #     self.fun1 = fun1
-    #     self.fun2 = fun2
+
 
     emoji_pattern = re.compile("["
                                u"\U0001F600-\U0001F64F"  # emoticons
@@ -49,7 +42,6 @@ class process(object):
     def line(cls,line='345', toLower =True, removeURL =True,removeHashtag=True,removePunctuations=True,\
              modifyAccent = True,removeEmoticons=True,removeAbbreviation=True,removeStopWords=True, \
              removeStemmer = True):
-        # print (line)
 
         if toLower==True:
             line = line.replace("\t", " ").lower()
@@ -80,7 +72,6 @@ class process(object):
         if removeStemmer == True:
             line = ' '.join([cls.snowball_stemmer.stem(word) for word in line.split()]) + '.'
 
-        # print(line)
         return line
 
 
@@ -98,7 +89,6 @@ class process(object):
                 synonyms.append(' '.join(l.name().split('_')))
 
         print(set(synonyms))
-        # print (synonyms)
         return synonyms
 
 
@@ -106,7 +96,8 @@ class process(object):
 if __name__ == '__main__':
     #process.test(line,removeAbbreviation=False,removeStopWords=False)
     sent = 'you  didn\'t 🙏 gonna ()..)thinking "improvement" http://www.df.df i home @lichao .'
-    process.line(sent)
+    test = process.line(sent)
+    print (test)
 
     # word = 'me'
-    process.synonyms('me')
+    test = process.synonyms('me')

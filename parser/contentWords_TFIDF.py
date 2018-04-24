@@ -2,13 +2,10 @@
 __author__ = "Yuchen"
 __aim__ = 'calculate TFIDF value for each topic in all documents(6k tweets) and return content words'
 
-import sys
 import math
 from textblob import TextBlob as tb
-sys.path.append(r"../..")
 from definition import ROOT
 import pickle
-import json
 
 
 class ContentWords(object):
